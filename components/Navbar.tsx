@@ -1,21 +1,13 @@
-type NavbarProps = {
-    name?: string;
+type Props = {
+  onSelect: (view: "Home" | "Other" | "Other") => void;
 }
 
-/*
-props = {
-    name: "MovieCatalog"
-}
-*/
-export default function Navbar({ name = "MovieCatalog" }: NavbarProps) {
+export default function Navbar({ onSelect }: Props) {
   return (
-    <div
-      style={{
-        border: "1px solid white",
-        padding: 10,
-      }}
-    >
-      {name}
-    </div>
+    <nav>
+      <button onClick={() => onSelect("Home")}>Home</button>
+      <button onClick={() => onSelect("Other")}>Other</button>
+      <button onClick={() => onSelect("Other")}>Other</button>
+    </nav>
   );
 }

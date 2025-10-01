@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import WelcomeUser from "@/components/WelcomeUser";
 import Navbar from "@/components/Navbar";
-import MovieCard from "../components/MovieCard";
 import { Movie } from "../types";
 
 
 
 export default function Home() {
+  const [currentView, setCurrentView] = useState<"Home" | "Other" | "Other">("Home");
+  
   return (
-    <div>
-      <h1>Test 123</h1>
-      <WelcomeUser />
-    </div>
+    <>
+    <Navbar onSelect={setCurrentView} />
+    <main>
+      {currentView === "Home" && <WelcomeUser />}
+    </main>
+    </>
   );
   
 }
