@@ -15,6 +15,7 @@ export default function Home() {
     <main>
       {currentView === "Home" && <WelcomeUser />}
       {currentView === "Games" && <GameLibrary />}
+      
     </main>
     </>
   );

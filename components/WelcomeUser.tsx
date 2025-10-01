@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 export default function WelcomeUser() {
+    const [role, setRole] = useState<"guest" | "member">("guest");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState("");
     const [inputName, setInputName] = useState("");
-    const [error, setError] = useState("");
 
     const handleLogin = () => {
         if (inputName.trim() !== "") {
@@ -17,11 +17,30 @@ export default function WelcomeUser() {
     const handleLoggout = () => {
         setIsLoggedIn(false);
         setUsername("");
+        setRole("guest");
     };
 
     return (
         <div>
-            {isLoggedIn ? (
+            <p>Welcome, Please select your role</p>
+            <select
+                value={role}
+                onChange={(event) => {
+                    const selectedRole = event.target.value as "guest" | "member";
+                    setRole(selectedRole);
+                    if (selectedRole === "guest") {
+                        setIsLoggedIn(false);
+                        setUsername("")
+                        setInputName("");
+                    }
+                }}
+            >
+                <option value="guest">Guest</option>
+                <option value="member">Member</option>
+            </select>
+
+            {role ===  "member" ? (
+                isLoggedIn ? (
                 <div>
                     <p>Welcome, {username}!</p>
                     <button onClick={handleLoggout}>Logout</button>
@@ -37,7 +56,10 @@ export default function WelcomeUser() {
                     />
                     <button onClick={handleLogin} disabled={inputName.trim() === ""}>Login</button>
                 </div>
-            )}
+            )
+        ) : ( 
+            <p>You are currently set as a Guest. You cannot save your name</p>
+        )}
         </div>
     );
 
